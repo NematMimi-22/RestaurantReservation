@@ -1,0 +1,12 @@
+C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\bin\Debug\net6.0\RestaurantReservation.Db.deps.json
+C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\bin\Debug\net6.0\RestaurantReservation.Db.dll
+C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\bin\Debug\net6.0\RestaurantReservation.Db.pdb
+C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\obj\Debug\net6.0\RestaurantReservation.Db.csproj.AssemblyReference.cache
+C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\obj\Debug\net6.0\RestaurantReservation.Db.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\obj\Debug\net6.0\RestaurantReservation.Db.AssemblyInfoInputs.cache
+C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\obj\Debug\net6.0\RestaurantReservation.Db.AssemblyInfo.cs
+C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\obj\Debug\net6.0\RestaurantReservation.Db.csproj.CoreCompileInputs.cache
+C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\obj\Debug\net6.0\RestaurantReservation.Db.dll
+C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\obj\Debug\net6.0\refint\RestaurantReservation.Db.dll
+C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\obj\Debug\net6.0\RestaurantReservation.Db.pdb
+C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\obj\Debug\net6.0\ref\RestaurantReservation.Db.dll
