@@ -12,6 +12,5 @@
         public Restaurant Restaurant { get; set; }
         public Table Table { get; set; }
         public List<Order> Orders { get; set; }
-
     }
 }

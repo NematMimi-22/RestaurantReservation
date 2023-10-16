@@ -11,6 +11,5 @@
         public List<Table> Tables { get; set; }
         public List<MenuItem> MenuItems { get; set; }
         public List<Reservation> Reservations { get; set; }
-
     }
 }
