@@ -12,10 +12,4 @@ C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\obj\D
 C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\obj\Debug\net6.0\ref\RestaurantReservation.Db.dll
 C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\bin\Debug\net6.0\RestaurantReservation.Db.runtimeconfig.json
 C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\obj\Debug\net6.0\RestaurantReservation.Db.genruntimeconfig.cache
-C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\bin\Debug\net6.0\RestaurantReservation.deps.json
-C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\bin\Debug\net6.0\RestaurantReservation.runtimeconfig.json
-C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\bin\Debug\net6.0\RestaurantReservation.exe
-C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\bin\Debug\net6.0\RestaurantReservation.dll
-C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\bin\Debug\net6.0\RestaurantReservation.pdb
-C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\obj\Debug\net6.0\RestaurantReservation.Db.csproj.CopyComplete
 C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservation.Db\bin\Debug\net6.0\appsettings.json

@@ -10,6 +10,9 @@ namespace RestaurantReservation.Db
             var connectionString = "Data Source=DESKTOP-CUQN3UP\\SQLEXPRESS;Initial Catalog=RestaurantReservationCore;Integrated Security=True;TrustServerCertificate=true";
             optionsBuilder.UseSqlServer(connectionString);
         }
+        public RestaurantReservationDbContext(DbContextOptions<RestaurantReservationDbContext> options) : base(options)
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

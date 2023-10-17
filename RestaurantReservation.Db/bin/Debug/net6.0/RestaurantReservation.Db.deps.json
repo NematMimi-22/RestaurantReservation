@@ -16,7 +16,6 @@
           "Microsoft.EntityFrameworkCore.Tools": "7.0.12",
           "Microsoft.Extensions.Configuration": "7.0.0",
           "Microsoft.Extensions.Configuration.Json": "7.0.0",
-          "RestaurantReservation": "1.0.0",
           "Serilog": "3.0.1"
         },
         "runtime": {
@@ -836,15 +835,6 @@
             "fileVersion": "6.0.21.52210"
           }
         }
-      },
-      "RestaurantReservation/1.0.0": {
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "7.0.12",
-          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.12"
-        },
-        "runtime": {
-          "RestaurantReservation.dll": {}
-        }
       }
     }
   },
@@ -1392,11 +1382,6 @@
       "sha512": "sha512-IXoJOXIqc39AIe+CIR7koBtRGMiCt/LPM3lI+PELtDIy9XdyeSrwXFdWV9dzJ2Awl0paLWUaknLxFQ5HpHZUog==",
       "path": "system.windows.extensions/6.0.0",
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
-    },
-    "RestaurantReservation/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     }
   }
 }
