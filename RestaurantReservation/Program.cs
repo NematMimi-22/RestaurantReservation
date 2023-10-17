@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using RestaurantReservation.Db;
+//using RestaurantReservation.Db;
 namespace RestaurantReservation
 {
     class Program
     {
         static void Main(string[] args)
         {
-            var serviceProvider = new ServiceCollection()
+        /*    var serviceProvider = new ServiceCollection()
                 .AddDbContext<RestaurantReservationDbContext>(options =>
                 options.UseSqlServer("Data Source=DESKTOP-CUQN3UP\\SQLEXPRESS;Initial Catalog=RestaurantReservationCore;Integrated Security=True;TrustServerCertificate=true"))
                 .BuildServiceProvider();
@@ -58,7 +58,7 @@ namespace RestaurantReservation
                         Console.WriteLine($"  Order ID: {order.OrderId}, Total Amount: {order.TotalAmount}");
                     }
                 }
-            }
+            }*/
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.Db;
 using RestaurantReservation.Db.Entities;
+using RestaurantReservation.Db.Viewes;
 using RestaurantReservation.Repositories;
 public class ReservationRepository : IEntityRepository<Reservation>
 {
@@ -48,5 +49,10 @@ public class ReservationRepository : IEntityRepository<Reservation>
         return await _dbContext.Reservations
             .Where(r => r.CustomerId == CustomerId)
             .ToListAsync();
+    }
+
+    public async Task<List<ReservationDetailsView>> GetReservationsWithDetailsAsync()
+    {
+        return await _dbContext.ReservationDetailsView.ToListAsync();
     }
 }

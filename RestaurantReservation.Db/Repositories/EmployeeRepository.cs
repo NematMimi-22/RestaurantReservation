@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using RestaurantReservation.Db;
 using RestaurantReservation.Db.Entities;
+using RestaurantReservation.Db.Viewes;
 using RestaurantReservation.Repositories;
 public class EmployeeRepository : IEntityRepository<Employee>
 {
@@ -67,4 +68,10 @@ public class EmployeeRepository : IEntityRepository<Employee>
             return 0;
         }
     }
+
+    public async Task<List<EmployeeRestaurantDetailsView>> GetEmployeesWithRestaurantDetailsAsync()
+    {
+        return await _dbContext.EmployeeRestaurantDetailsView.ToListAsync();
+    }
+
 }

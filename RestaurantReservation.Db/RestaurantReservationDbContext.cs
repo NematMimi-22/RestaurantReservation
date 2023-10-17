@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Seed_Data;
+using RestaurantReservation.Db.Viewes;
+
 namespace RestaurantReservation.Db
 {
     public class RestaurantReservationDbContext : DbContext
@@ -10,13 +12,16 @@ namespace RestaurantReservation.Db
             var connectionString = "Data Source=DESKTOP-CUQN3UP\\SQLEXPRESS;Initial Catalog=RestaurantReservationCore;Integrated Security=True;TrustServerCertificate=true";
             optionsBuilder.UseSqlServer(connectionString);
         }
-        public RestaurantReservationDbContext(DbContextOptions<RestaurantReservationDbContext> options) : base(options)
+        /*public RestaurantReservationDbContext(DbContextOptions<RestaurantReservationDbContext> options) : base(options)
         {
-        }
+        }*/
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             SeedData.Initialize(modelBuilder);
+
+            modelBuilder.Entity<EmployeeRestaurantDetailsView>().HasNoKey().ToView("EmployeeRestaurantDetailsView");
+            modelBuilder.Entity<ReservationDetailsView>().HasNoKey().ToView("ReservationDetailsView");
         }
 
         public DbSet<Reservation> Reservations { set; get; }
@@ -27,5 +32,7 @@ namespace RestaurantReservation.Db
         public DbSet<Table> Tables { get; set; }
         public DbSet<Customer> Customers { set; get; }
         public DbSet<Employee> Employees { set; get; }
+        public DbSet<ReservationDetailsView> ReservationDetailsView { get; set; }
+        public DbSet<EmployeeRestaurantDetailsView> EmployeeRestaurantDetailsView { get; set; }
     }
 }
