@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.Db.Entities;
+using RestaurantReservation.Db.Seed_Data;
 namespace RestaurantReservation.Db
 {
     public class RestaurantReservationDbContext : DbContext
@@ -12,6 +13,7 @@ namespace RestaurantReservation.Db
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            SeedData.Initialize(modelBuilder);
         }
 
         public DbSet<Reservation> Reservations { set; get; }
