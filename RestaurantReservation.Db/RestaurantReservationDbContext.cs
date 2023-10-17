@@ -19,7 +19,6 @@ namespace RestaurantReservation.Db
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             SeedData.Initialize(modelBuilder);
-
             modelBuilder.Entity<EmployeeRestaurantDetailsView>().HasNoKey().ToView("EmployeeRestaurantDetailsView");
             modelBuilder.Entity<ReservationDetailsView>().HasNoKey().ToView("ReservationDetailsView");
         }
