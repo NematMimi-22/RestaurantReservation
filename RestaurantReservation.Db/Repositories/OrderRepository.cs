@@ -42,4 +42,11 @@ public class OrderRepository : IEntityRepository<Order>
             await _dbContext.SaveChangesAsync();
         }
     }
+
+    public async Task<List<Order>> ListOrdersAndMenuItems(int ReservationId)
+    {
+        return await _dbContext.Orders
+                       .Where(o => o.ReservationId == ReservationId)
+                       .ToListAsync();
+    }
 }

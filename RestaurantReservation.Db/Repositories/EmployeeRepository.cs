@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using RestaurantReservation.Db;
 using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Repositories;
@@ -40,6 +41,30 @@ public class EmployeeRepository : IEntityRepository<Employee>
         {
             _dbContext.Employees.Remove(employee);
             await _dbContext.SaveChangesAsync();
+        }
+    }
+
+    public async Task<List<Employee>> ListManagersAsync()
+    {
+        return await _dbContext.Employees
+            .Where(e => e.Position == "Manager")
+            .ToListAsync();
+    }
+
+    public async Task<double?> CalculateAverageOrderAmountAsync(int EmployeeId)
+    {
+        var orders = await _dbContext.Orders
+            .Where(o => o.EmployeeId == EmployeeId)
+            .ToListAsync();
+        if (!orders.IsNullOrEmpty())
+        {
+            var averageAmount = (orders.Sum(o => o.TotalAmount))/orders.Count;
+
+            return averageAmount;
+        }
+        else
+        {
+            return 0;
         }
     }
 }

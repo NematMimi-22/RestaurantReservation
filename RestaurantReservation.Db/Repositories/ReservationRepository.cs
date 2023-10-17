@@ -42,4 +42,11 @@ public class ReservationRepository : IEntityRepository<Reservation>
             await _dbContext.SaveChangesAsync();
         }
     }
+
+    public async Task<List<Reservation>> GetReservationsByCustomer(int CustomerId)
+    {
+        return await _dbContext.Reservations
+            .Where(r => r.CustomerId == CustomerId)
+            .ToListAsync();
+    }
 }

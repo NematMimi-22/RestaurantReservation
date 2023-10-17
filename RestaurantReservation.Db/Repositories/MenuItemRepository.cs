@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NPoco;
 using RestaurantReservation.Db;
 using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Repositories;
@@ -41,5 +42,13 @@ public class MenuItemRepository : IEntityRepository<MenuItem>
             _dbContext.MenuItems.Remove(MenuItem);
             await _dbContext.SaveChangesAsync();
         }
+    }
+
+    public async Task<List<MenuItem>> ListOrderedMenuItems(int ReservationId)
+    {
+        return await _dbContext.Orders
+                       .Where(o => o.ReservationId == ReservationId)
+                       .SelectMany(o => o.OrderItems.Select(it => it.MenuItem))
+                       .ToListAsync();
     }
 }
