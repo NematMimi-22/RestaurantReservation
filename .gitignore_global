@@ -1,0 +1,10 @@
+# Ignore binary files
+*.bin
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Ignore cache directories
+.cache/
+cache/
