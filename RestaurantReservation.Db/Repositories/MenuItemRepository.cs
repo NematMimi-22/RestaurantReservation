@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NPoco;
 using RestaurantReservation.Db;
 using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Repositories;
