@@ -3337,20 +3337,6 @@
             "related": ".pdb;.xml"
           }
         }
-      },
-      "RestaurantReservation/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "7.0.12",
-          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.12"
-        },
-        "compile": {
-          "bin/placeholder/RestaurantReservation.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/RestaurantReservation.dll": {}
-        }
       }
     }
   },
@@ -9939,11 +9925,6 @@
         "umbracocms.core.8.18.9.nupkg.sha512",
         "umbracocms.core.nuspec"
       ]
-    },
-    "RestaurantReservation/1.0.0": {
-      "type": "project",
-      "path": "../RestaurantReservation/RestaurantReservation.csproj",
-      "msbuildProject": "../RestaurantReservation/RestaurantReservation.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -9956,7 +9937,6 @@
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.12",
       "Microsoft.Extensions.Configuration >= 7.0.0",
       "Microsoft.Extensions.Configuration.Json >= 7.0.0",
-      "RestaurantReservation >= 1.0.0",
       "Serilog >= 3.0.1",
       "UmbracoCms.Core >= 8.18.9"
     ]
@@ -9987,11 +9967,7 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {
-            "C:\\Users\\Nemat\\source\\repos\\RestaurantReservation\\RestaurantReservation\\RestaurantReservation.csproj": {
-              "projectPath": "C:\\Users\\Nemat\\source\\repos\\RestaurantReservation\\RestaurantReservation\\RestaurantReservation.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {

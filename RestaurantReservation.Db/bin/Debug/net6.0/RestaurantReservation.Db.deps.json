@@ -16,7 +16,6 @@
           "Microsoft.EntityFrameworkCore.Tools": "7.0.12",
           "Microsoft.Extensions.Configuration": "7.0.0",
           "Microsoft.Extensions.Configuration.Json": "7.0.0",
-          "RestaurantReservation": "1.0.0",
           "Serilog": "3.0.1",
           "UmbracoCms.Core": "8.18.9"
         },
@@ -2026,15 +2025,6 @@
             "fileVersion": "8.18.9.0"
           }
         }
-      },
-      "RestaurantReservation/1.0.0": {
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "7.0.12",
-          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.12"
-        },
-        "runtime": {
-          "RestaurantReservation.dll": {}
-        }
       }
     }
   },
@@ -3324,11 +3314,6 @@
       "sha512": "sha512-9LysmpyF74Oi4ph26qlWYEBDMLZapIUVQZcg3/tQFKDh0w77PXy/DVvnyXzs6pMP1PSnSOgMsCPzNHqRrGYiqQ==",
       "path": "umbracocms.core/8.18.9",
       "hashPath": "umbracocms.core.8.18.9.nupkg.sha512"
-    },
-    "RestaurantReservation/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
     }
   }
 }
