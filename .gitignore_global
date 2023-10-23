@@ -1,10 +1,4 @@
-# Ignore binary files
-*.bin
-*.exe
-*.dll
-*.so
-*.dylib
-
-# Ignore cache directories
-.cache/
-cache/
+/RestaurantReservation.Db/bin/
+/RestaurantReservation.Db/obj/
+/RestaurantReservation/bin/
+/RestaurantReservation/obj/
