@@ -3,7 +3,7 @@ namespace RestaurantReservation.Repositories
 {
     public class EntityRepositoryBase<TEntity> : IEntityRepository<TEntity> where TEntity : class
     {
-        private readonly DbContext _dbContext;
+        public readonly DbContext _dbContext;
 
         public EntityRepositoryBase(DbContext dbContext)
         {
