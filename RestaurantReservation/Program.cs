@@ -15,49 +15,44 @@ namespace RestaurantReservation
             using (var context = serviceProvider.GetRequiredService<RestaurantReservationDbContext>())
             {
                 context.Database.EnsureCreated();
-                var customers = context.Customers.ToList();
-                var employees = context.Employees.ToList();
-                var menuItems = context.MenuItems.ToList();
-                var orders = context.Orders.Include(o => o.OrderItems).ToList();
-                var reservations = context.Reservations.Include(r => r.Orders).ToList();
 
                 Console.WriteLine("Customers:");
-                foreach (var customer in customers)
+                context.Customers.ToList().ForEach(customer =>
                 {
                     Console.WriteLine($"Customer ID: {customer.CustomerId}, Name: {customer.FirstName} {customer.LastName}");
-                }
+                });
 
                 Console.WriteLine("\nEmployees:");
-                foreach (var employee in employees)
+                context.Employees.ToList().ForEach(employee =>
                 {
                     Console.WriteLine($"Employee ID: {employee.EmployeeId}, Name: {employee.FirstName} {employee.LastName}, Position: {employee.Position}");
-                }
+                });
 
                 Console.WriteLine("\nMenu Items:");
-                foreach (var menuItem in menuItems)
+                context.MenuItems.ToList().ForEach(menuItem =>
                 {
                     Console.WriteLine($"Menu Item ID: {menuItem.MenuItemId}, Name: {menuItem.Name}, Price: {menuItem.Price}");
-                }
+                });
 
                 Console.WriteLine("\nOrders:");
-                foreach (var order in orders)
+                context.Orders.Include(o => o.OrderItems).ToList().ForEach(order =>
                 {
                     Console.WriteLine($"Order ID: {order.OrderId}, Total Amount: {order.TotalAmount}");
-                    foreach (var orderItem in order.OrderItems)
+                    order.OrderItems.ForEach(orderItem =>
                     {
                         Console.WriteLine($"  Order Item ID: {orderItem.OrderItemId}, Quantity: {orderItem.Quantity}");
-                    }
-                }
+                    });
+                });
 
                 Console.WriteLine("\nReservations:");
-                foreach (var reservation in reservations)
+                context.Reservations.Include(r => r.Orders).ToList().ForEach(reservation =>
                 {
                     Console.WriteLine($"Reservation ID: {reservation.ReservationId}, Party Size: {reservation.PartySize}");
-                    foreach (var order in reservation.Orders)
+                    reservation.Orders.ForEach(order =>
                     {
                         Console.WriteLine($"  Order ID: {order.OrderId}, Total Amount: {order.TotalAmount}");
-                    }
-                }
+                    });
+                });
             }
         }
     }
