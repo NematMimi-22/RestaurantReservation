@@ -3,9 +3,11 @@ using Microsoft.IdentityModel.Tokens;
 using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Viewes;
 using RestaurantReservation.Repositories;
+using Umbraco.Core.Models.Entities;
+
 namespace RestaurantReservation.Repositories
 {
-    public class EmployeeRepository : EntityRepositoryBase<Employee>
+    public class EmployeeRepository<TEntity> : EntityRepositoryBase<Employee>, IEntityRepository<Employee>
     {
         public EmployeeRepository(DbContext dbContext) : base(dbContext)
         {

@@ -2,7 +2,7 @@
 using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Viewes;
 using RestaurantReservation.Repositories;
-public class ReservationRepository : EntityRepositoryBase<Reservation>
+public class ReservationRepository : EntityRepositoryBase<Reservation>, IEntityRepository<Reservation>
 {
     public ReservationRepository(DbContext dbContext) : base(dbContext)
     {
