@@ -1,6 +1,7 @@
-/RestaurantReservation.Db/bin/
-/RestaurantReservation.Db/obj/
-/RestaurantReservation.Db/.vs/
+RestaurantReservation.Db/bin/
+RestaurantReservation.Db/obj/
+RestaurantReservation.Db/.vs/
 RestaurantReservation/bin/
 RestaurantReservation/obj/
 RestaurantReservation/.vs/
+.idea
