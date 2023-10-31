@@ -2,7 +2,7 @@
 using RestaurantReservation.Db.IRepositories;
 namespace RestaurantReservation.Repositories
 {
-    public class EntityRepositoryBase<TEntity> : IEntityRepository<TEntity> where TEntity : class
+    public class EntityRepositoryBase<TEntity, TId> : IEntityRepository<TEntity, TId> where TEntity : class
     {
         protected readonly DbContext _dbContext;
 
@@ -14,11 +14,6 @@ namespace RestaurantReservation.Repositories
         public async Task<List<TEntity>> RetrieveAllAsync()
         {
             return await _dbContext.Set<TEntity>().ToListAsync();
-        }
-
-        public async Task<TEntity> GetByIdAsync(int id)
-        {
-            return await _dbContext.Set<TEntity>().FindAsync(id);
         }
 
         public async Task CreateAsync(TEntity entity)
@@ -33,7 +28,7 @@ namespace RestaurantReservation.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(TId id)
         {
             var entity = await _dbContext.Set<TEntity>().FindAsync(id);
             if (entity != null)

@@ -1,11 +1,10 @@
 ﻿namespace RestaurantReservation.Db.IRepositories
 {
-    public interface IEntityRepository<TEntity> where TEntity : class
+    public interface IEntityRepository<TEntity, TId> where TEntity : class
     {
         Task<List<TEntity>> RetrieveAllAsync();
-        Task<TEntity> GetByIdAsync(int id);
         Task CreateAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);
-        Task DeleteAsync(int id);
+        Task DeleteAsync(TId id);
     }
 }

@@ -2,7 +2,7 @@
 using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.IRepositories;
 using RestaurantReservation.Repositories;
-public class OrderRepository : EntityRepositoryBase<Order>, IOrderRepository
+public class OrderRepository : EntityRepositoryBase<Order, int>, IOrderRepository<int>
 {
     public OrderRepository(DbContext dbContext) : base(dbContext)
     {

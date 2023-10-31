@@ -5,7 +5,7 @@ using RestaurantReservation.Db.IRepositories;
 using RestaurantReservation.Db.Viewes;
 namespace RestaurantReservation.Repositories
 {
-    public class EmployeeRepository : EntityRepositoryBase<Employee>, IEmployeeRepository
+    public class EmployeeRepository : EntityRepositoryBase<Employee, int>, IEmployeeRepository<int>
     {
         public EmployeeRepository(DbContext dbContext) : base(dbContext)
         {

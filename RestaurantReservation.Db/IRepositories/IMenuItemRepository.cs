@@ -1,8 +1,8 @@
 ﻿using RestaurantReservation.Db.Entities;
 namespace RestaurantReservation.Db.IRepositories
 {
-    public interface IMenuItemRepository : IEntityRepository<MenuItem>
+    public interface IMenuItemRepository<TId> : IEntityRepository<MenuItem, TId>
     {
-        Task<List<MenuItem>> ListOrderedMenuItems(int ReservationId);
+        Task<List<MenuItem>> ListOrderedMenuItems(TId ReservationId);
     }
 }

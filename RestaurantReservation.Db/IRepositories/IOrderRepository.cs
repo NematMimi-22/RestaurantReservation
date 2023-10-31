@@ -1,8 +1,10 @@
 ﻿using RestaurantReservation.Db.Entities;
+using System.Security.Cryptography;
+
 namespace RestaurantReservation.Db.IRepositories
 {
-    public interface IOrderRepository : IEntityRepository<Order>
+    public interface IOrderRepository<TId> : IEntityRepository<Order, TId>
     {
-        Task<List<Order>> ListOrdersAndMenuItems(int ReservationId);
+        Task<List<Order>> ListOrdersAndMenuItems(TId ReservationId);
     }
 }

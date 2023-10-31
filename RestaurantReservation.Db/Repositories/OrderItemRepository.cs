@@ -2,7 +2,7 @@
 using RestaurantReservation.Db.IRepositories;
 using RestaurantReservation.Repositories;
 using Microsoft.EntityFrameworkCore;
-public class OrderItemRepository : EntityRepositoryBase<OrderItem>, IOrderItemRepository
+public class OrderItemRepository : EntityRepositoryBase<OrderItem, int>, IOrderItemRepository<int>
 {
     public OrderItemRepository(DbContext dbContext) : base(dbContext)
     {
