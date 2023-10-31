@@ -3,7 +3,7 @@ using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.IRepositories;
 using RestaurantReservation.Db.Viewes;
 using RestaurantReservation.Repositories;
-public class ReservationRepository : EntityRepositoryBase<Reservation, int>, IReservationRepository<int>
+public class ReservationRepository : EntityRepositoryBase<Reservation, int>, IReservationRepository
 {
     public ReservationRepository(DbContext dbContext) : base(dbContext)
     {

@@ -30,12 +30,17 @@ namespace RestaurantReservation.Repositories
 
         public async Task DeleteAsync(TId id)
         {
-            var entity = await _dbContext.Set<TEntity>().FindAsync(id);
+            var entity = await GetByIdAsync(id);
             if (entity != null)
             {
                 _dbContext.Set<TEntity>().Remove(entity);
                 await _dbContext.SaveChangesAsync();
             }
+        }
+
+        public async Task<TEntity> GetByIdAsync(TId id)
+        {
+            return await _dbContext.Set<TEntity>().FindAsync(id);
         }
     }
 }

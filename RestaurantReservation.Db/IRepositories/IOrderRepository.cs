@@ -3,8 +3,8 @@ using System.Security.Cryptography;
 
 namespace RestaurantReservation.Db.IRepositories
 {
-    public interface IOrderRepository<TId> : IEntityRepository<Order, TId>
+    public interface IOrderRepository : IEntityRepository<Order, int>
     {
-        Task<List<Order>> ListOrdersAndMenuItems(TId ReservationId);
+        Task<List<Order>> ListOrdersAndMenuItems(int ReservationId);
     }
 }

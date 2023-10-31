@@ -4,9 +4,9 @@ using System.Security.Cryptography;
 
 namespace RestaurantReservation.Db.IRepositories
 {
-    public interface IReservationRepository<TId> : IEntityRepository<Reservation, TId>
+    public interface IReservationRepository : IEntityRepository<Reservation, int>
     {
-        Task<List<Reservation>> GetReservationsByReservation(TId ReservationId);
+        Task<List<Reservation>> GetReservationsByReservation(int ReservationId);
         Task<List<ReservationDetailsView>> GetReservationsWithDetailsAsync();
     }
 }

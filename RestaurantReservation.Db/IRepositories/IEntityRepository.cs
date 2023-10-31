@@ -6,5 +6,6 @@
         Task CreateAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);
         Task DeleteAsync(TId id);
+        Task<TEntity> GetByIdAsync(TId id);
     }
 }

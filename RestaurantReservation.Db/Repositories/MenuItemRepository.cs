@@ -2,7 +2,7 @@
 using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.IRepositories;
 using RestaurantReservation.Repositories;
-public class MenuItemRepository : EntityRepositoryBase<MenuItem, int>, IMenuItemRepository<int>
+public class MenuItemRepository : EntityRepositoryBase<MenuItem, int>, IMenuItemRepository
 {
     public MenuItemRepository(DbContext dbContext) : base(dbContext)
     {
