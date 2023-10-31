@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RestaurantReservation.Db;
+using RestaurantReservation.Repositories;
+using Umbraco.Core.Models.Entities;
+
 namespace RestaurantReservation
 {
     class Program
@@ -11,7 +14,6 @@ namespace RestaurantReservation
                 .AddDbContext<RestaurantReservationDbContext>(options =>
                 options.UseSqlServer("Data Source=DESKTOP-CUQN3UP\\SQLEXPRESS;Initial Catalog=RestaurantReservationCore;Integrated Security=True;TrustServerCertificate=true"))
                 .BuildServiceProvider();
-
             using (var context = serviceProvider.GetRequiredService<RestaurantReservationDbContext>())
             {
                 context.Database.EnsureCreated();

@@ -1,4 +1,4 @@
-﻿namespace RestaurantReservation.Repositories
+﻿namespace RestaurantReservation.Db.IRepositories
 {
     public interface IEntityRepository<TEntity> where TEntity : class
     {

@@ -1,44 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RestaurantReservation.Db.Entities;
+using RestaurantReservation.Db.IRepositories;
 using RestaurantReservation.Db.Viewes;
 namespace RestaurantReservation.Repositories
 {
-    public class EmployeeRepository<TEntity> : IEntityRepository<Employee>
+    public class EmployeeRepository : EntityRepositoryBase<Employee>, IEmployeeRepository
     {
-        private readonly EntityRepositoryBase<Employee> _entityRepository;
-        private readonly Microsoft.EntityFrameworkCore.DbContext _dbContext;
-
-        public EmployeeRepository(Microsoft.EntityFrameworkCore.DbContext dbContext)
+        public EmployeeRepository(DbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-            _entityRepository = new EntityRepositoryBase<Employee>(dbContext);
         }
 
-        public async Task<List<Employee>> RetrieveAllAsync()
-        {
-            return await _entityRepository.RetrieveAllAsync();
-        }
-
-        public async Task<Employee> GetByIdAsync(int id)
-        {
-            return await _entityRepository.GetByIdAsync(id);
-        }
-
-        public async Task CreateAsync(Employee entity)
-        {
-            await _entityRepository.CreateAsync(entity);
-        }
-
-        public async Task UpdateAsync(Employee entity)
-        {
-            await _entityRepository.UpdateAsync(entity);
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            await _entityRepository.DeleteAsync(id);
-        }
         public async Task<List<Employee>> ListManagersAsync()
         {
             return await _dbContext.Set<Employee>()
