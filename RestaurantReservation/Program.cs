@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using RestaurantReservation.Db;
-using RestaurantReservation.Repositories;
-using Umbraco.Core.Models.Entities;
-
 namespace RestaurantReservation
 {
     class Program
