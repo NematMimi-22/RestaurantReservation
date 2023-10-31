@@ -1,9 +1,36 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RestaurantReservation.Db.Entities;
+﻿using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Repositories;
-public class RestaurantRepository : EntityRepositoryBase<Restaurant>, IEntityRepository<Restaurant>
+public class RestaurantRepository : IEntityRepository<Restaurant>
 {
-    public RestaurantRepository(DbContext dbContext) : base(dbContext)
+    private readonly EntityRepositoryBase<Restaurant> _entityRepository;
+
+    public RestaurantRepository(Microsoft.EntityFrameworkCore.DbContext dbContext)
     {
+        _entityRepository = new EntityRepositoryBase<Restaurant>(dbContext);
+    }
+
+    public async Task<List<Restaurant>> RetrieveAllAsync()
+    {
+        return await _entityRepository.RetrieveAllAsync();
+    }
+
+    public async Task<Restaurant> GetByIdAsync(int id)
+    {
+        return await _entityRepository.GetByIdAsync(id);
+    }
+
+    public async Task CreateAsync(Restaurant entity)
+    {
+        await _entityRepository.CreateAsync(entity);
+    }
+
+    public async Task UpdateAsync(Restaurant entity)
+    {
+        await _entityRepository.UpdateAsync(entity);
+    }
+
+    public async Task DeleteAsync(int id)
+    {
+        await _entityRepository.DeleteAsync(id);
     }
 }

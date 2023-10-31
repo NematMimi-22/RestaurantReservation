@@ -1,21 +1,50 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Repositories;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-public class MenuItemRepository : EntityRepositoryBase<MenuItem>, IEntityRepository<MenuItem>
+using System.Data.Entity;
+public class MenuItemRepository : IEntityRepository<MenuItem>
 {
-    public MenuItemRepository(DbContext dbContext) : base(dbContext)
+    private readonly EntityRepositoryBase<MenuItem> _entityRepository;
+    private readonly Microsoft.EntityFrameworkCore.DbContext _dbContext; 
+
+    public MenuItemRepository(Microsoft.EntityFrameworkCore.DbContext dbContext)
     {
+        _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+        _entityRepository = new EntityRepositoryBase<MenuItem>(dbContext);
+    }
+
+    public async Task<List<MenuItem>> RetrieveAllAsync()
+    {
+        return await _entityRepository.RetrieveAllAsync();
+    }
+
+    public async Task<MenuItem> GetByIdAsync(int id)
+    {
+        return await _entityRepository.GetByIdAsync(id);
+    }
+
+    public async Task CreateAsync(MenuItem entity)
+    {
+        await _entityRepository.CreateAsync(entity);
+    }
+
+    public async Task UpdateAsync(MenuItem entity)
+    {
+        await _entityRepository.UpdateAsync(entity);
+    }
+
+    public async Task DeleteAsync(int id)
+    {
+        await _entityRepository.DeleteAsync(id);
     }
 
     public async Task<List<MenuItem>> ListOrderedMenuItems(int ReservationId)
     {
-        return await _dbContext.Set<Order>()
+        var orderedMenuItems = await _dbContext.Set<Order>()
             .Where(o => o.ReservationId == ReservationId)
             .SelectMany(o => o.OrderItems.Select(it => it.MenuItem))
             .ToListAsync();
+
+        return orderedMenuItems;
     }
 }
