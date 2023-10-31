@@ -3,7 +3,8 @@ using System.Security.Cryptography;
 
 namespace RestaurantReservation.Db.IRepositories
 {
-    public interface ITableRepository<TId> : IEntityRepository<Table, TId>
+    public interface ITableRepository : IEntityRepository<Table, int>
+
     {
     }
 }
