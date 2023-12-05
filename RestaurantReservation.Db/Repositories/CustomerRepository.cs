@@ -1,10 +1,13 @@
-﻿using RestaurantReservation.Db.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.IRepositories;
+using RestaurantReservation.Db;
 using RestaurantReservation.Repositories;
-using Microsoft.EntityFrameworkCore;
+
 public class CustomerRepository : EntityRepositoryBase<Customer, int>, ICustomerRepository
 {
-    public CustomerRepository(DbContext dbContext) : base(dbContext) 
+    public CustomerRepository(DbContextOptions<RestaurantReservationDbContext> dbContextOptions)
+        : base(new RestaurantReservationDbContext(dbContextOptions))
     {
     }
 }
