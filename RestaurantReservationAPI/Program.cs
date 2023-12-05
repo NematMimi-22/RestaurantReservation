@@ -19,16 +19,19 @@ builder.Services.AddDbContext<RestaurantReservationDbContext>(options =>
     options.UseSqlServer("Data Source=DESKTOP-CUQN3UP\\SQLEXPRESS;Initial Catalog=RestaurantReservationCore;Integrated Security=True;TrustServerCertificate=true");
 });
 
-/*builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddAutoMapper(typeof(CustomerProfile));
 
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddAutoMapper(typeof(EmployeeProfile));
 
 builder.Services.AddScoped<IMenuItemRepository, MenuItemRepository>();
-builder.Services.AddAutoMapper(typeof(MenuItemProfile));*/
+builder.Services.AddAutoMapper(typeof(MenuItemProfile));
 
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddAutoMapper(typeof(OrderProfile));
+
+builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 builder.Services.AddAutoMapper(typeof(OrderProfile));
 
 var app = builder.Build();
