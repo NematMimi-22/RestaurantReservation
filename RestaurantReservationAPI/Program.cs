@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using RestaurantReservation.Db;
 using RestaurantReservation.Db.IRepositories;
+using RestaurantReservation.Repositories;
 using RestaurantReservationAPI.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,12 @@ builder.Services.AddDbContext<RestaurantReservationDbContext>(options =>
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddAutoMapper(typeof(CustomerProfile));
 
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddAutoMapper(typeof(EmployeeProfile));
+
+builder.Services.AddScoped<IMenuItemRepository, MenuItemRepository>();
+builder.Services.AddAutoMapper(typeof(MenuItemProfile));
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -33,5 +40,4 @@ app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
-
 app.Run();

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using RestaurantReservation.Db;
 using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.IRepositories;
 using RestaurantReservation.Db.Viewes;
@@ -7,7 +8,8 @@ namespace RestaurantReservation.Repositories
 {
     public class EmployeeRepository : EntityRepositoryBase<Employee, int>, IEmployeeRepository
     {
-        public EmployeeRepository(DbContext dbContext) : base(dbContext)
+        public EmployeeRepository(DbContextOptions<RestaurantReservationDbContext> dbContextOptions)
+        : base(new RestaurantReservationDbContext(dbContextOptions))
         {
         }
 
