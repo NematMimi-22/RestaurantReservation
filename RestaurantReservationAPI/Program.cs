@@ -34,6 +34,15 @@ builder.Services.AddAutoMapper(typeof(OrderProfile));
 builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 builder.Services.AddAutoMapper(typeof(OrderProfile));
 
+builder.Services.AddScoped<IReservationRepository,ReservationRepository>();
+builder.Services.AddAutoMapper(typeof(ReservationProfile));
+
+builder.Services.AddScoped<IRestaurantRepository, RestaurantRepository>();
+builder.Services.AddAutoMapper(typeof(RestaurantProfile));
+
+builder.Services.AddScoped<ITableRepository, TableRepository>();
+builder.Services.AddAutoMapper(typeof(TableProfile));
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

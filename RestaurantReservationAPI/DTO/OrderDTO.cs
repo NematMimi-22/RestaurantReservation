@@ -1,4 +1,4 @@
-﻿namespace RestaurantReservation.Db.Entities
+﻿namespace RestaurantReservationAPI.DTO
 {
     public class OrderDTO
     {

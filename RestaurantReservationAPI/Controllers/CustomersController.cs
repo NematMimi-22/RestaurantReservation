@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantReservation.Db.Entities;
+using RestaurantReservationAPI.DTO;
 using RestaurantReservation.Db.IRepositories;
 
 namespace RestaurantReservationAPI.Controllers
