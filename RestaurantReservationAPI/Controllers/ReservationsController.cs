@@ -77,5 +77,32 @@ namespace RestaurantReservationAPI.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("customer/{customerId}")]
+        public async Task<ActionResult<IEnumerable<ReservationDTO>>> GetReservationsByCustomer(int customerId)
+        {
+            var reservations = await _reservationRepository.GetReservationsByCustomerAsync(customerId);
+            var reservationsDTO = _mapper.Map<IEnumerable<ReservationDTO>>(reservations);
+
+            return Ok(reservationsDTO);
+        }
+
+        [HttpGet("{reservationId}/orders")]
+        public async Task<ActionResult<IEnumerable<OrderDTO>>> GetOrdersForReservation(int reservationId)
+        {
+            var orders = await _reservationRepository.GetOrdersForReservationAsync(reservationId);
+            var ordersDTO = _mapper.Map<IEnumerable<OrderDTO>>(orders);
+
+            return Ok(ordersDTO);
+        }
+
+        [HttpGet("{reservationId}/menu-items")]
+        public async Task<ActionResult<IEnumerable<MenuItemDTO>>> GetMenuItemsForReservation(int reservationId)
+        {
+            var menuItems = await _reservationRepository.GetMenuItemsForReservationAsync(reservationId);
+            var menuItemsDTO = _mapper.Map<IEnumerable<MenuItemDTO>>(menuItems);
+
+            return Ok(menuItemsDTO);
+        }
     }
 }

@@ -22,4 +22,26 @@ public class ReservationRepository : EntityRepositoryBase<Reservation, int>, IRe
     {
         return await _dbContext.Set<ReservationDetailsView>().ToListAsync();
     }
+
+    public async Task<IEnumerable<Reservation>> GetReservationsByCustomerAsync(int customerId)
+    {
+        return await _dbContext.Set<Reservation>()
+            .Where(r => r.CustomerId == customerId)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Order>> GetOrdersForReservationAsync(int reservationId)
+    {
+        return await _dbContext.Set<Order>()
+            .Where(o => o.ReservationId == reservationId)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<MenuItem>> GetMenuItemsForReservationAsync(int reservationId)
+    {
+        return await _dbContext.Set<OrderItem>()
+            .Where(oi => oi.Order.ReservationId == reservationId)
+            .Select(oi => oi.MenuItem)
+            .ToListAsync();
+    }
 }

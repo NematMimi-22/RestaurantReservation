@@ -77,5 +77,22 @@ namespace RestaurantReservationAPI.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("managers")]
+        public async Task<ActionResult<IEnumerable<EmployeeDTO>>> GetManagers()
+        {
+            var managers = await _employeeRepository.GetManagersAsync();
+            var managersDTO = _mapper.Map<IEnumerable<EmployeeDTO>>(managers);
+
+            return Ok(managersDTO);
+        }
+
+        [HttpGet("{employeeId}/average-order-amount")]
+        public async Task<ActionResult<double>> GetAverageOrderAmount(int employeeId)
+        {
+            var averageOrderAmount = await _employeeRepository.GetAverageOrderAmountAsync(employeeId);
+
+            return Ok(averageOrderAmount);
+        }
     }
 }

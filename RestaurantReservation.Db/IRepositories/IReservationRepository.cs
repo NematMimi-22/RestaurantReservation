@@ -1,6 +1,5 @@
 ﻿using RestaurantReservation.Db.Entities;
 using RestaurantReservation.Db.Viewes;
-using System.Security.Cryptography;
 
 namespace RestaurantReservation.Db.IRepositories
 {
@@ -8,5 +7,8 @@ namespace RestaurantReservation.Db.IRepositories
     {
         Task<List<Reservation>> GetReservationsByReservation(int ReservationId);
         Task<List<ReservationDetailsView>> GetReservationsWithDetailsAsync();
+        Task<IEnumerable<Reservation>> GetReservationsByCustomerAsync(int customerId);
+        Task<IEnumerable<Order>> GetOrdersForReservationAsync(int reservationId);
+        Task<IEnumerable<MenuItem>> GetMenuItemsForReservationAsync(int reservationId);
     }
 }

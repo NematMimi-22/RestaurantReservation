@@ -41,5 +41,21 @@ namespace RestaurantReservation.Repositories
         {
             return await _dbContext.Set<EmployeeRestaurantDetailsView>().ToListAsync();
         }
+
+        public async Task<IEnumerable<Employee>> GetManagersAsync()
+        {
+            return await _dbContext.Set<Employee>()
+                .Where(e => e.Position == "Manager")
+                .ToListAsync();
+        }
+
+        public async Task<double> GetAverageOrderAmountAsync(int employeeId)
+        {
+            var averageOrderAmount = await _dbContext.Set<Order>()
+                .Where(o => o.EmployeeId == employeeId)
+                .AverageAsync(o => o.TotalAmount);
+
+            return averageOrderAmount;
+        }
     }
 }

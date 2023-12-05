@@ -9,5 +9,7 @@ namespace RestaurantReservation.Db.IRepositories
         Task<List<Employee>> ListManagersAsync();
         Task<double?> CalculateAverageOrderAmountAsync(int EmployeeId);
         Task<List<EmployeeRestaurantDetailsView>> GetEmployeesWithRestaurantDetailsAsync();
+        Task<IEnumerable<Employee>> GetManagersAsync();
+        Task<double> GetAverageOrderAmountAsync(int employeeId);
     }
 }
