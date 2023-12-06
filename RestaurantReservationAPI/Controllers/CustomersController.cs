@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using RestaurantReservation.Db.Entities;
 using RestaurantReservationAPI.DTO;
 using RestaurantReservation.Db.IRepositories;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RestaurantReservationAPI.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/customers")]
     public class CustomersController : ControllerBase
@@ -19,6 +21,7 @@ namespace RestaurantReservationAPI.Controllers
             _mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CustomerDTO>>> GetCustomers()
         {

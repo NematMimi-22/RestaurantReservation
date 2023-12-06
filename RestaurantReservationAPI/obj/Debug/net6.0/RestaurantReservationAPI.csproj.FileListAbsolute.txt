@@ -161,3 +161,4 @@ C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservationAPI\obj\D
 C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservationAPI\obj\Debug\net6.0\RestaurantReservationAPI.genruntimeconfig.cache
 C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservationAPI\obj\Debug\net6.0\ref\RestaurantReservationAPI.dll
 C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservationAPI\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\Nemat\source\repos\RestaurantReservation\RestaurantReservationAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

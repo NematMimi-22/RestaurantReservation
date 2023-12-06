@@ -1,47 +1,18 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RestaurantReservation.Db;
 using RestaurantReservation.Db.IRepositories;
 using RestaurantReservation.Repositories;
 using RestaurantReservationAPI.Profiles;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Restaurant Reservation API", Version = "v1" });
-});
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
-builder.Services.AddDbContext<RestaurantReservationDbContext>(options =>
-{
-    options.UseSqlServer("Data Source=DESKTOP-CUQN3UP\\SQLEXPRESS;Initial Catalog=RestaurantReservationCore;Integrated Security=True;TrustServerCertificate=true");
-});
-
-builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
-builder.Services.AddAutoMapper(typeof(CustomerProfile));
-
-builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-builder.Services.AddAutoMapper(typeof(EmployeeProfile));
-
-builder.Services.AddScoped<IMenuItemRepository, MenuItemRepository>();
-builder.Services.AddAutoMapper(typeof(MenuItemProfile));
-
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-builder.Services.AddAutoMapper(typeof(OrderProfile));
-
-builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
-builder.Services.AddAutoMapper(typeof(OrderProfile));
-
-builder.Services.AddScoped<IReservationRepository,ReservationRepository>();
-builder.Services.AddAutoMapper(typeof(ReservationProfile));
-
-builder.Services.AddScoped<IRestaurantRepository, RestaurantRepository>();
-builder.Services.AddAutoMapper(typeof(RestaurantProfile));
-
-builder.Services.AddScoped<ITableRepository, TableRepository>();
-builder.Services.AddAutoMapper(typeof(TableProfile));
+ConfigureServices(builder.Services, builder.Configuration);
 
 var app = builder.Build();
 
@@ -53,6 +24,69 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
+
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 app.Run();
+static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+{
+    services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = configuration["Authentication:Issuer"],
+            ValidAudience = configuration["Authentication:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Authentication:SecretForKey"]))
+        };
+    });
+
+    services.AddControllers();
+    services.AddEndpointsApiExplorer();
+    services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API Title", Version = "v1" });
+    });
+
+    services.AddDbContext<RestaurantReservationDbContext>(options =>
+    {
+        options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+    });
+
+
+    services.AddScoped<ICustomerRepository, CustomerRepository>();
+    services.AddAutoMapper(typeof(CustomerProfile));
+
+    services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+    services.AddAutoMapper(typeof(EmployeeProfile));
+
+    services.AddScoped<IMenuItemRepository, MenuItemRepository>();
+    services.AddAutoMapper(typeof(MenuItemProfile));
+
+    services.AddScoped<IOrderRepository, OrderRepository>();
+    services.AddAutoMapper(typeof(OrderProfile));
+
+    services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+    services.AddAutoMapper(typeof(OrderProfile));
+
+    services.AddScoped<IReservationRepository, ReservationRepository>();
+    services.AddAutoMapper(typeof(ReservationProfile));
+
+    services.AddScoped<IRestaurantRepository, RestaurantRepository>();
+    services.AddAutoMapper(typeof(RestaurantProfile));
+
+    services.AddScoped<ITableRepository, TableRepository>();
+    services.AddAutoMapper(typeof(TableProfile));
+
+    services.AddScoped<ITokenService, TokenService>();
+}
