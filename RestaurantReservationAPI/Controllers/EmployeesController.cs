@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using RestaurantReservation.Db.Entities;
 using RestaurantReservationAPI.DTO;
 using RestaurantReservation.Db.IRepositories;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RestaurantReservationAPI.Controllers
 {
@@ -22,77 +25,136 @@ namespace RestaurantReservationAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EmployeeDTO>>> GetEmployees()
         {
-            var employees = await _employeeRepository.RetrieveAllAsync();
-            var employeesDTO = _mapper.Map<IEnumerable<EmployeeDTO>>(employees);
+            try
+            {
+                var employees = await _employeeRepository.RetrieveAllAsync();
+                var employeesDTO = _mapper.Map<IEnumerable<EmployeeDTO>>(employees);
 
-            return Ok(employeesDTO);
+                return Ok(employeesDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<EmployeeDTO>> GetEmployee(int id)
         {
-            var employee = await _employeeRepository.GetByIdAsync(id);
-
-            if (employee == null)
+            try
             {
-                return NotFound();
+                var employee = await _employeeRepository.GetByIdAsync(id);
+
+                if (employee == null)
+                {
+                    return NotFound("Employee not found");
+                }
+
+                var employeeDTO = _mapper.Map<EmployeeDTO>(employee);
+
+                return Ok(employeeDTO);
             }
-
-            var employeeDTO = _mapper.Map<EmployeeDTO>(employee);
-
-            return Ok(employeeDTO);
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpPost]
         public async Task<ActionResult<EmployeeDTO>> CreateEmployee(EmployeeDTO employeeDTO)
         {
-            var employee = _mapper.Map<Employee>(employeeDTO);
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
-            await _employeeRepository.CreateAsync(employee);
+                var employee = _mapper.Map<Employee>(employeeDTO);
 
-            var createdEmployeeDTO = _mapper.Map<EmployeeDTO>(employee);
+                await _employeeRepository.CreateAsync(employee);
 
-            return CreatedAtAction(nameof(GetEmployee), new { id = createdEmployeeDTO.EmployeeId }, createdEmployeeDTO);
+                var createdEmployeeDTO = _mapper.Map<EmployeeDTO>(employee);
+
+                return CreatedAtAction(nameof(GetEmployee), new { id = createdEmployeeDTO.EmployeeId }, createdEmployeeDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateEmployee(int id, EmployeeDTO employeeDTO)
         {
-            if (id != employeeDTO.EmployeeId)
+            try
             {
-                return BadRequest();
+                if (id != employeeDTO.EmployeeId)
+                {
+                    return BadRequest("Invalid employee ID");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var employee = _mapper.Map<Employee>(employeeDTO);
+
+                await _employeeRepository.UpdateAsync(employee);
+
+                return NoContent();
             }
-
-            var employee = _mapper.Map<Employee>(employeeDTO);
-
-            await _employeeRepository.UpdateAsync(employee);
-
-            return NoContent();
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployee(int id)
         {
-            await _employeeRepository.DeleteAsync(id);
+            try
+            {
+                await _employeeRepository.DeleteAsync(id);
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpGet("managers")]
         public async Task<ActionResult<IEnumerable<EmployeeDTO>>> GetManagers()
         {
-            var managers = await _employeeRepository.GetManagersAsync();
-            var managersDTO = _mapper.Map<IEnumerable<EmployeeDTO>>(managers);
+            try
+            {
+                var managers = await _employeeRepository.GetManagersAsync();
+                var managersDTO = _mapper.Map<IEnumerable<EmployeeDTO>>(managers);
 
-            return Ok(managersDTO);
+                return Ok(managersDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpGet("{employeeId}/average-order-amount")]
         public async Task<ActionResult<double>> GetAverageOrderAmount(int employeeId)
         {
-            var averageOrderAmount = await _employeeRepository.GetAverageOrderAmountAsync(employeeId);
+            try
+            {
+                var averageOrderAmount = await _employeeRepository.GetAverageOrderAmountAsync(employeeId);
 
-            return Ok(averageOrderAmount);
+                return Ok(averageOrderAmount);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
     }
 }

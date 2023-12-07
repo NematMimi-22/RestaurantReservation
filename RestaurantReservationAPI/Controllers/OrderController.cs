@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using RestaurantReservation.Db.Entities;
 using RestaurantReservationAPI.DTO;
 using RestaurantReservation.Db.IRepositories;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RestaurantReservationAPI.Controllers
 {
@@ -22,61 +25,106 @@ namespace RestaurantReservationAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<OrderDTO>>> GetOrders()
         {
-            var orders = await _orderRepository.RetrieveAllAsync();
-            var orderDTOs = _mapper.Map<IEnumerable<OrderDTO>>(orders);
+            try
+            {
+                var orders = await _orderRepository.RetrieveAllAsync();
+                var orderDTOs = _mapper.Map<IEnumerable<OrderDTO>>(orders);
 
-            return Ok(orderDTOs);
+                return Ok(orderDTOs);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<OrderDTO>> GetOrder(int id)
         {
-            var order = await _orderRepository.GetByIdAsync(id);
-
-            if (order == null)
+            try
             {
-                return NotFound();
+                var order = await _orderRepository.GetByIdAsync(id);
+
+                if (order == null)
+                {
+                    return NotFound();
+                }
+
+                var orderDTO = _mapper.Map<OrderDTO>(order);
+
+                return Ok(orderDTO);
             }
-
-            var orderDTO = _mapper.Map<OrderDTO>(order);
-
-            return Ok(orderDTO);
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpPost]
         public async Task<ActionResult<OrderDTO>> CreateOrder(OrderDTO orderDTO)
         {
-            var order = _mapper.Map<Order>(orderDTO);
-            order.OrderDate = DateTime.Now; // Set the order date to the current date/time
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
-            await _orderRepository.CreateAsync(order);
+                var order = _mapper.Map<Order>(orderDTO);
+                order.OrderDate = DateTime.Now;
 
-            var createdOrderDTO = _mapper.Map<OrderDTO>(order);
+                await _orderRepository.CreateAsync(order);
 
-            return CreatedAtAction(nameof(GetOrder), new { id = createdOrderDTO.OrderId }, createdOrderDTO);
+                var createdOrderDTO = _mapper.Map<OrderDTO>(order);
+
+                return CreatedAtAction(nameof(GetOrder), new { id = createdOrderDTO.OrderId }, createdOrderDTO);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateOrder(int id, OrderDTO orderDTO)
         {
-            if (id != orderDTO.OrderId)
+            try
             {
-                return BadRequest();
+                if (id != orderDTO.OrderId)
+                {
+                    return BadRequest("Invalid order ID");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var order = _mapper.Map<Order>(orderDTO);
+
+                await _orderRepository.UpdateAsync(order);
+
+                return NoContent();
             }
-
-            var order = _mapper.Map<Order>(orderDTO);
-
-            await _orderRepository.UpdateAsync(order);
-
-            return NoContent();
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOrder(int id)
         {
-            await _orderRepository.DeleteAsync(id);
+            try
+            {
+                await _orderRepository.DeleteAsync(id);
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
     }
 }

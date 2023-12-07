@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RestaurantReservation.Db.Entities;
-using RestaurantReservationAPI.DTO;
 using RestaurantReservation.Db.IRepositories;
-using Microsoft.AspNetCore.Authorization;
+using RestaurantReservationAPI.DTO;
 
 namespace RestaurantReservationAPI.Controllers
 {
@@ -25,60 +25,105 @@ namespace RestaurantReservationAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CustomerDTO>>> GetCustomers()
         {
-            var customers = await _customerRepository.RetrieveAllAsync();
-            var customersDTO = _mapper.Map<IEnumerable<CustomerDTO>>(customers);
+            try
+            {
+                var customers = await _customerRepository.RetrieveAllAsync();
+                var customersDTO = _mapper.Map<IEnumerable<CustomerDTO>>(customers);
 
-            return Ok(customersDTO);
+                return Ok(customersDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<CustomerDTO>> GetCustomer(int id)
         {
-            var customer = await _customerRepository.GetByIdAsync(id);
-
-            if (customer == null)
+            try
             {
-                return NotFound();
+                var customer = await _customerRepository.GetByIdAsync(id);
+
+                if (customer == null)
+                {
+                    return NotFound("Customer not found");
+                }
+
+                var customerDTO = _mapper.Map<CustomerDTO>(customer);
+
+                return Ok(customerDTO);
             }
-
-            var customerDTO = _mapper.Map<CustomerDTO>(customer);
-
-            return Ok(customerDTO);
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpPost]
         public async Task<ActionResult<CustomerDTO>> CreateCustomer(CustomerDTO customerDTO)
         {
-            var customer = _mapper.Map<Customer>(customerDTO);
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
-            await _customerRepository.CreateAsync(customer);
+                var customer = _mapper.Map<Customer>(customerDTO);
 
-            var createdCustomerDTO = _mapper.Map<CustomerDTO>(customer);
+                await _customerRepository.CreateAsync(customer);
 
-            return CreatedAtAction(nameof(GetCustomer), new { id = createdCustomerDTO.CustomerId }, createdCustomerDTO);
+                var createdCustomerDTO = _mapper.Map<CustomerDTO>(customer);
+
+                return CreatedAtAction(nameof(GetCustomer), new { id = createdCustomerDTO.CustomerId }, createdCustomerDTO);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCustomer(int id, CustomerDTO customerDTO)
         {
-            if (id != customerDTO.CustomerId)
+            try
             {
-                return BadRequest();
+                if (id != customerDTO.CustomerId)
+                {
+                    return BadRequest("Invalid customer ID");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var customer = _mapper.Map<Customer>(customerDTO);
+
+                await _customerRepository.UpdateAsync(customer);
+
+                return NoContent();
             }
-
-            var customer = _mapper.Map<Customer>(customerDTO);
-
-            await _customerRepository.UpdateAsync(customer);
-
-            return NoContent();
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(int id)
-        { 
-            await _customerRepository.DeleteAsync(id);
+        {
+            try
+            {
+                await _customerRepository.DeleteAsync(id);
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
     }
 }

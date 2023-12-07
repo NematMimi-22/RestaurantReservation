@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using RestaurantReservation.Db.Entities;
 using RestaurantReservationAPI.DTO;
 using RestaurantReservation.Db.IRepositories;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RestaurantReservationAPI.Controllers
 {
@@ -22,87 +25,153 @@ namespace RestaurantReservationAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ReservationDTO>>> GetReservations()
         {
-            var reservations = await _reservationRepository.RetrieveAllAsync();
-            var reservationsDTO = _mapper.Map<IEnumerable<ReservationDTO>>(reservations);
+            try
+            {
+                var reservations = await _reservationRepository.RetrieveAllAsync();
+                var reservationsDTO = _mapper.Map<IEnumerable<ReservationDTO>>(reservations);
 
-            return Ok(reservationsDTO);
+                return Ok(reservationsDTO);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ReservationDTO>> GetReservation(int id)
         {
-            var reservation = await _reservationRepository.GetByIdAsync(id);
-
-            if (reservation == null)
+            try
             {
-                return NotFound();
+                var reservation = await _reservationRepository.GetByIdAsync(id);
+
+                if (reservation == null)
+                {
+                    return NotFound();
+                }
+
+                var reservationDTO = _mapper.Map<ReservationDTO>(reservation);
+
+                return Ok(reservationDTO);
             }
-
-            var reservationDTO = _mapper.Map<ReservationDTO>(reservation);
-
-            return Ok(reservationDTO);
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpPost]
         public async Task<ActionResult<ReservationDTO>> CreateReservation(ReservationDTO reservationDTO)
         {
-            var reservation = _mapper.Map<Reservation>(reservationDTO);
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
-            await _reservationRepository.CreateAsync(reservation);
+                var reservation = _mapper.Map<Reservation>(reservationDTO);
 
-            var createdReservationDTO = _mapper.Map<ReservationDTO>(reservation);
+                await _reservationRepository.CreateAsync(reservation);
 
-            return CreatedAtAction(nameof(GetReservation), new { id = createdReservationDTO.ReservationId }, createdReservationDTO);
+                var createdReservationDTO = _mapper.Map<ReservationDTO>(reservation);
+
+                return CreatedAtAction(nameof(GetReservation), new { id = createdReservationDTO.ReservationId }, createdReservationDTO);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateReservation(int id, ReservationDTO reservationDTO)
         {
-            if (id != reservationDTO.ReservationId)
+            try
             {
-                return BadRequest();
+                if (id != reservationDTO.ReservationId)
+                {
+                    return BadRequest("Invalid reservation ID");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var reservation = _mapper.Map<Reservation>(reservationDTO);
+
+                await _reservationRepository.UpdateAsync(reservation);
+
+                return NoContent();
             }
-
-            var reservation = _mapper.Map<Reservation>(reservationDTO);
-
-            await _reservationRepository.UpdateAsync(reservation);
-
-            return NoContent();
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteReservation(int id)
         {
-            await _reservationRepository.DeleteAsync(id);
+            try
+            {
+                await _reservationRepository.DeleteAsync(id);
 
-            return NoContent();
+                return NoContent();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpGet("customer/{customerId}")]
         public async Task<ActionResult<IEnumerable<ReservationDTO>>> GetReservationsByCustomer(int customerId)
         {
-            var reservations = await _reservationRepository.GetReservationsByCustomerAsync(customerId);
-            var reservationsDTO = _mapper.Map<IEnumerable<ReservationDTO>>(reservations);
+            try
+            {
+                var reservations = await _reservationRepository.GetReservationsByCustomerAsync(customerId);
+                var reservationsDTO = _mapper.Map<IEnumerable<ReservationDTO>>(reservations);
 
-            return Ok(reservationsDTO);
+                return Ok(reservationsDTO);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpGet("{reservationId}/orders")]
         public async Task<ActionResult<IEnumerable<OrderDTO>>> GetOrdersForReservation(int reservationId)
         {
-            var orders = await _reservationRepository.GetOrdersForReservationAsync(reservationId);
-            var ordersDTO = _mapper.Map<IEnumerable<OrderDTO>>(orders);
+            try
+            {
+                var orders = await _reservationRepository.GetOrdersForReservationAsync(reservationId);
+                var ordersDTO = _mapper.Map<IEnumerable<OrderDTO>>(orders);
 
-            return Ok(ordersDTO);
+                return Ok(ordersDTO);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
 
         [HttpGet("{reservationId}/menu-items")]
         public async Task<ActionResult<IEnumerable<MenuItemDTO>>> GetMenuItemsForReservation(int reservationId)
         {
-            var menuItems = await _reservationRepository.GetMenuItemsForReservationAsync(reservationId);
-            var menuItemsDTO = _mapper.Map<IEnumerable<MenuItemDTO>>(menuItems);
+            try
+            {
+                var menuItems = await _reservationRepository.GetMenuItemsForReservationAsync(reservationId);
+                var menuItemsDTO = _mapper.Map<IEnumerable<MenuItemDTO>>(menuItems);
 
-            return Ok(menuItemsDTO);
+                return Ok(menuItemsDTO);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal Server Error");
+            }
         }
     }
 }
