@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using RestaurantReservation.Db;
 namespace RestaurantReservation
 {
+
     class Program
     {
         static void Main(string[] args)
